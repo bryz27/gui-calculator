@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'DSEG14 Classic Local';
+    src: url('fonts/DSEG/DSEG14Classic-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 #calculator-body {
     position: absolute;
     top: 50%;
@@ -10,17 +17,41 @@
     align-items: center;
 
     width: 300px;
-    height: 200px;
+    height: 270px;
 }
 
 #calculator-body #screen {
     display: grid;
-    /* background-color: aqua; */
+    position: relative;
+    width: 310px;
+    height: 100px;
+    /* background-color: #9cb2a7; */
+    /* border: 5px solid #222; */
+    border-radius: 4px;
+    /* padding: 10px; */
+    /* box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.3); */
+    overflow: hidden;
+    margin-bottom: 10px;
 }
 
-#calculator-body #screen #digits {
-    height: 60px;
-    width: 310px;
+#calculator-body #screen #screen-bg,
+#calculator-body #screen #screen-text {
+    font-family: 'DSEG14 Classic Local', sans-serif;
+    font-size: 42px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    letter-spacing: 1px;
+}
+
+#calculator-body #screen #screen-bg {
+    color: rgba(0, 0, 0, 0.12);
+}
+
+#calculator-body #screen #screen-text {
+    color: rgba(10, 20, 10, 0.85);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 #calculator-body #buttons {
