@@ -2,18 +2,22 @@ let firstOperand;
 let secondOperand;
 let operator;
 
-function add(){
-
+function add(firstOp, secondOp) {
+    let result = firstOp + secondOp;
+    return result;
 }
 
-function subtract(){
-
+function subtract(firstOp, secondOp) {
+    let result = firstOp - secondOp;
+    return result;
 }
 
-function multiply(){
-
+function multiply(firstOp, secondOp) {
+    let result = firstOp * secondOp;
+    return result;
 }
 
-function divide(){
-
+function divide(firstOp, secondOp) {
+    let result = secondOp / firstOp;
+    return result;
 }
