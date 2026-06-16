@@ -1,6 +1,6 @@
-let firstOperand = 0;
-let secondOperand = 0;
-let operator;
+let firstOperand = '';
+let secondOperand = '';
+let operator = '';
 let total = 0;
 let numBuffer = ``;
 
@@ -24,12 +24,12 @@ function multiply(firstOp, secondOp) {
 }
 
 function divide(firstOp, secondOp) {
-    let result = secondOp / firstOp;
+    let result = firstOp / secondOp;
     return result;
 }
 
 function operate(fOP, sOP, op) {
-    let equal;
+    let equal = 0;
     switch (op) {
         case '+':
             equal = add(fOP, sOP);
@@ -49,6 +49,7 @@ function operate(fOP, sOP, op) {
             break;
         default:
             console.log('Please try again');
+            return equal = 0;
             break;
     }
 }
@@ -59,20 +60,31 @@ function updateNum(newStr) {
 }
 
 function evaluate(op) {
-
-    if (firstOperand != '' && secondOperand != '' && op != '=') {
-        firstOperand = operate(parseFloat(firstOperand), parseFloat(secondOperand), op);
-        screenText.textContent = firstOperand;
-    }
-    else if (op === '+' || op === '-' || op === '*' || op === '/') {
-        firstOperand = parseFloat(numBuffer);
+    if (op === '+' || op === '-' || op === '*' || op === '/') {
+        if (numBuffer !== '') {
+            if (firstOperand === '') {
+                firstOperand = parseFloat(numBuffer);
+            } else if (operator !== '') {
+                secondOperand = parseFloat(numBuffer);
+                total = operate(firstOperand, secondOperand, operator);
+                firstOperand = total;
+                screenText.textContent = total;
+                secondOperand = '';
+            }
+            numBuffer = '';
+        }
+        operator = op;
         screenText.textContent = op;
-        numBuffer = ``;
-    }
-    else if (op === '=') {
-        secondOperand = parseFloat(numBuffer);
-        total = operate(firstOperand, secondOperand, op);
-        screenText.textContent = total;
+    } else if (op === '=') {
+        if (firstOperand !== '' && operator !== '' && numBuffer !== '') {
+            secondOperand = parseFloat(numBuffer);
+            total = operate(firstOperand, secondOperand, operator);
+            screenText.textContent = total;
+            firstOperand = total; // Store total in firstOperand to allow chained calculations
+            secondOperand = '';
+            numBuffer = '';
+            operator = '';
+        }
     }
 }
 
@@ -114,6 +126,10 @@ numButtons.addEventListener('click', (event) => {
             updateNum('.');
             break;
         case 'clear':
+            firstOperand = '';
+            secondOperand = '';
+            operator = '';
+            total = 0;
             numBuffer = ``;
             screenText.textContent = ``;
             break;
@@ -128,16 +144,20 @@ opButtons.addEventListener('click', (event) => {
 
     switch (target2.id) {
         case 'divide':
-            evaluate('/');
+            operator = '/';
+            evaluate(operator);
             break;
         case 'multiply':
-            evaluate('*');
+            operator = '*';
+            evaluate(operator);
             break;
         case 'subtract':
-            evaluate('-');
+            operator = '-';
+            evaluate(operator);
             break;
         case 'add':
-            evaluate('+');
+            operator = '+';
+            evaluate(operator);
             break;
         case 'equal':
             evaluate('=');
