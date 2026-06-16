@@ -55,7 +55,6 @@ function operate(fOP, sOP, op) {
 }
 
 function updateNum(newStr) {
-    total = 0;
     if (newStr === '.') {
         if (numBuffer.includes('.')) {
             return;
@@ -64,6 +63,7 @@ function updateNum(newStr) {
             numBuffer = 0;
         }
     }
+    total = 0;
     numBuffer = `${numBuffer}${newStr}`;
     screenText.textContent = numBuffer;
 }
