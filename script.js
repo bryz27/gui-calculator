@@ -55,12 +55,13 @@ function operate(fOP, sOP, op) {
 }
 
 function updateNum(newStr) {
+    total = 0;
     numBuffer = `${numBuffer}${newStr}`;
     screenText.textContent = numBuffer;
 }
 
-function evaluate(op) {
-    if (op === '+' || op === '-' || op === '*' || op === '/') {
+function evaluate(nextOP) {
+    if (nextOP === '+' || nextOP === '-' || nextOP === '*' || nextOP === '/') {
         if (numBuffer !== '') {
             if (firstOperand === '') {
                 firstOperand = parseFloat(numBuffer);
@@ -73,14 +74,14 @@ function evaluate(op) {
             }
             numBuffer = '';
         }
-        operator = op;
-        screenText.textContent = op;
-    } else if (op === '=') {
+        operator = nextOP;
+        screenText.textContent = nextOP;
+    } else if (nextOP === '=') {
         if (firstOperand !== '' && operator !== '' && numBuffer !== '') {
             secondOperand = parseFloat(numBuffer);
             total = operate(firstOperand, secondOperand, operator);
             screenText.textContent = total;
-            firstOperand = total; // Store total in firstOperand to allow chained calculations
+            firstOperand = '';
             secondOperand = '';
             numBuffer = '';
             operator = '';
@@ -144,20 +145,16 @@ opButtons.addEventListener('click', (event) => {
 
     switch (target2.id) {
         case 'divide':
-            operator = '/';
-            evaluate(operator);
+            evaluate('/');
             break;
         case 'multiply':
-            operator = '*';
-            evaluate(operator);
+            evaluate('*');
             break;
         case 'subtract':
-            operator = '-';
-            evaluate(operator);
+            evaluate('-');
             break;
         case 'add':
-            operator = '+';
-            evaluate(operator);
+            evaluate('+');
             break;
         case 'equal':
             evaluate('=');
