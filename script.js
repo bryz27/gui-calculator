@@ -1,7 +1,7 @@
-let firstOperand;
-let secondOperand;
+let firstOperand = 0;
+let secondOperand = 0;
 let operator;
-let total;
+let total = 0;
 let numBuffer = ``;
 
 const numButtons = document.querySelector('#num-buttons');
@@ -58,6 +58,24 @@ function updateNum(newStr) {
     screenText.textContent = numBuffer;
 }
 
+function evaluate(op) {
+
+    if (firstOperand != '' && secondOperand != '' && op != '=') {
+        firstOperand = operate(parseFloat(firstOperand), parseFloat(secondOperand), op);
+        screenText.textContent = firstOperand;
+    }
+    else if (op === '+' || op === '-' || op === '*' || op === '/') {
+        firstOperand = parseFloat(numBuffer);
+        screenText.textContent = op;
+        numBuffer = ``;
+    }
+    else if (op === '=') {
+        secondOperand = parseFloat(numBuffer);
+        total = operate(firstOperand, secondOperand, op);
+        screenText.textContent = total;
+    }
+}
+
 numButtons.addEventListener('click', (event) => {
     let target = event.target;
 
@@ -100,6 +118,32 @@ numButtons.addEventListener('click', (event) => {
             screenText.textContent = ``;
             break;
         default:
+            console.log("There is an error in numbers though");
+            break;
+    }
+});
+
+opButtons.addEventListener('click', (event) => {
+    let target2 = event.target;
+
+    switch (target2.id) {
+        case 'divide':
+            evaluate('/');
+            break;
+        case 'multiply':
+            evaluate('*');
+            break;
+        case 'subtract':
+            evaluate('-');
+            break;
+        case 'add':
+            evaluate('+');
+            break;
+        case 'equal':
+            evaluate('=');
+            break;
+        default:
+            console.log('There is an error in operations though');
             break;
     }
 });
